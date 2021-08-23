@@ -2,9 +2,9 @@
 
 A Parking Reservation Web App, where user can book Car Parks / Parking Lots / Airport Parking at various places across the world.
 
-<img src = "src/images/ss1.png" width = "500">
+<img src = "src/images/ss1.png" width = "600">
 
-![](src/images/ss2.png)
+<img src = "src/images/ss2.png" width = "600">
 
 ## Features
 * User Authentication (Sign up / Log in)
