@@ -1,0 +1,22 @@
+.footer {
+	padding-bottom: 50px;
+}
+
+.foot {
+	height: 3rem;
+	margin-bottom: 0px;
+	background: #171835;
+	color: white;
+	align-items: center;
+	display: flex;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: absolute;
+}
+
+.foot span {
+	font-size: 14px;
+	margin-left: auto;
+	margin-right: auto;
+}

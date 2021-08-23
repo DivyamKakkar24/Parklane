@@ -1,0 +1,505 @@
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 4rem;
+  padding-bottom: 3rem;
+	box-sizing: border-box;
+}
+
+.container {
+	max-width: 650px;
+	width: 100%;
+	background: #222;
+	color: white;
+	padding: 25px 25px;
+	border-radius: 20px;
+	animation: form-appear 300ms ease-out forwards;
+}
+
+.title {
+  color: #ffffff;
+  font-family: 'Merriweather', serif;
+  letter-spacing: 2px;
+  font-size: 36px;
+  font-weight: 600;
+  position: relative;
+}
+
+.subtitle {
+  color: #cebc81;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+}
+
+.group {
+	margin-top: 18px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.group p {
+  margin-left: 15px;
+  color: #FF7982;
+}
+
+.field {
+	width:  calc(100% / 2 - 15px);
+	position: relative;
+}
+
+.field input {
+	margin: 20px 0 12px 0;
+	height: 50px;
+	width: 100%;
+	display: block;
+}
+
+.field1 {
+	width:  calc(100% / 2 + 600px);
+	position: relative;
+}
+
+.field1 input {
+	margin: 20px 0 12px 0;
+	height: 50px;
+	width: 100%;
+	display: block;
+}
+
+.field2 {
+	width:  calc(100% / 2 + 600px);
+	position: relative;
+	height: 40px;
+	margin: 20px 0 12px 0;
+}
+
+.invalid input {
+  background-color: #ffefe2;
+}
+
+.input {
+  font: inherit;
+  font-size: 18px;
+  padding: 4px 20px 0;
+  background-color: #ebebeb;
+  color: #000;
+  outline: 0;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.output {
+  font-family: 'Courier Prime', monospace;
+  font-size: 19px;
+  text-align: center;
+  letter-spacing: 2px;
+  padding: 7px 20px 0;
+  background-color: #222;
+  color: #eee;
+  outline: 0;
+  box-sizing: border-box;
+  border: 1px solid #950740;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  position: relative;
+}
+.op {
+  border: 1px solid #91DB90;
+}
+
+.input2 {
+  font: inherit;
+  font-size: 18px;
+  padding: 4px 20px 0;
+  padding-top: 7px;
+  background-color: #ebebeb;
+  color: #000;
+  outline: 0;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 12px;
+  width: 70%;
+  max-width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.cut {
+  background-color: #222;
+  border-radius: 10px;
+  height: 20px;
+  left: 20px;
+  position: absolute;
+  top: -5px;
+  transform: translateY(0);
+  transition: transform 200ms;
+  width: 59px;
+}
+
+.cuttop {
+  width: 81px;
+}
+
+.cutbig1 {
+  width: 103px;
+}
+
+.cutbig2 {
+  width: 108px;
+}
+
+.cutbig3 {
+  width: 126px;
+}
+
+.cutdate1 {
+  width: 84px;
+}
+
+.cutdate2 {
+  width: 76px;
+}
+
+.input:focus ~ .cut,
+.input:not(:placeholder-shown) ~ .cut {
+  transform: translateY(12px);
+}
+
+.input2:focus ~ .cut,
+.input2:not(:placeholder-shown) ~ .cut {
+  transform: translateY(12px);
+}
+
+.placeholder {
+  color: #65657b;
+  font-family: 'Comfortaa', cursive;
+  left: 20px;
+  line-height: 14px;
+  pointer-events: none;
+  position: absolute;
+  transform-origin: 0 50%;
+  transition: transform 200ms, color 200ms;
+  top: 38px;
+}
+
+.input:focus ~ .placeholder,
+.input:not(:placeholder-shown) ~ .placeholder {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:not(:placeholder-shown) ~ .placeholder {
+  color: #808097;
+}
+
+.input:focus ~ .placeholder {
+  color: #dc2f55;
+}
+
+.input2:focus ~ .placeholder,
+.input2:not(:placeholder-shown) ~ .placeholder {
+  transform: translateY(-28px) translateX(10px) scale(0.75);
+}
+
+.input2:not(:placeholder-shown) ~ .placeholder {
+  color: #808097;
+}
+
+.input2:focus ~ .placeholder {
+  color: #dc2f55;
+}
+
+@keyframes form-appear {
+  from {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.submit {
+  background-color: #08d;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  outline: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.submit:active {
+  background-color: #06b;
+}
+
+.submit2 {
+  background-color: #F1D145;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  outline: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.submit2:active {
+  background-color: #D2B432;
+}
+
+.city2 {
+  display: none;
+}
+.city1 {
+  display: block;
+}
+
+@media (max-width: 767px) {
+	.container {
+		max-width: 500px;
+		width: 100%;
+		padding: 25px 25px;
+		border-radius: 15px;
+	}
+  .city1 {
+    display: none;
+  }
+  .city2 {
+    display: block;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 420px) {
+  .container {
+    max-width: 350px;
+    width: 100%;
+    padding: 25px 18px;
+    border-radius: 15px;
+  }
+  .title {
+    letter-spacing: 3px;
+    font-size: 30px;
+  }
+  .subtitle {
+    letter-spacing: 4px;
+    font-size: 14px;
+  }  
+  .field {
+    width:  calc(100% / 2 - 10px);
+  }
+  .field input {
+    height: 40px;
+  }
+  .field1 {
+    width:  calc(100% / 2 + 600px);
+    position: relative;
+  }
+  .field1 input {
+    margin: 20px 0 12px 0;
+    height: 40px;
+  }
+  .field2 {
+    width:  calc(100% / 2 + 600px);
+    position: relative;
+    height: 30px;
+    margin: 15px 0 10px 0;
+  }
+  .input {
+    font-size: 15px;
+    padding: 3px 13px 0;
+    border-radius: 8px;
+  }  
+  .input2 {
+    font-size: 15px;
+    padding: 3px 13px 0;
+    padding-top: 7px;
+    border-radius: 8px;
+  }
+  .output {
+    font-size: 17px;
+    padding: 3px 20px 0;
+  }
+  .cut {
+    height: 19px;
+    left: 12px;
+    top: -5px;
+    width: 55px;
+  }
+  .cuttop {
+    width: 74px;
+  }
+  .cutbig1 {
+    width: 94px;
+  }
+  .cutbig2 {
+    width: 96px;
+  }
+  .cutbig3 {
+    width: 42px;
+  }
+  .cutdate1 {
+    width: 77px;
+  }
+  .cutdate2 {
+    width: 68px;
+  }
+  .placeholder {
+    left: 12px;
+    line-height: 10px;
+    top: 38px;
+  }
+  .input:focus ~ .placeholder,
+  .input:not(:placeholder-shown) ~ .placeholder {
+    transform: translateY(-25px) translateX(10px) scale(0.75);
+  }
+  .input2:focus ~ .placeholder,
+  .input2:not(:placeholder-shown) ~ .placeholder {
+    transform: translateY(-25px) translateX(10px) scale(0.75);
+  }
+  .submit {
+    border-radius: 10px;
+    font-size: 15px;
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+  }
+  .submit2 {
+    border-radius: 10px;
+    font-size: 15px;
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 0px; 
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+    max-width: 285px;
+    width: 100%;
+    padding: 20px 15px;
+    border-radius: 12px;
+  }
+  .title {
+    letter-spacing: 2px;
+    font-size: 27px;
+  }
+  .subtitle {
+    letter-spacing: 3px;
+    font-size: 12px;
+  }  
+  .field {
+    width:  calc(100% / 2 - 8px);
+  }
+  .field input {
+    height: 35px;
+  }
+  .field1 {
+    width:  calc(100% / 2 + 600px);
+    position: relative;
+  }
+  .field1 input {
+    margin: 20px 0 12px 0;
+    height: 35px;
+  }
+  .field2 {
+    width:  calc(100% / 2 + 600px);
+    position: relative;
+    height: 27px;
+    margin: 12px 0 10px 0;
+  }
+  .input {
+    font-size: 14px;
+    padding: 3px 13px 0;
+    border-radius: 7px;
+  }  
+  .input2 {
+    font-size: 14px;
+    padding: 3px 13px 0;
+    border-radius: 7px;
+  }
+  .output {
+    font-size: 14px;
+    padding: 5px 20px 0;
+  }
+  .cut {
+    height: 19px;
+    left: 12px;
+    top: -5px;
+    width: 51px;
+  }
+  .cuttop {
+    width: 68px;
+  }
+  .cutbig1 {
+    width: 90px;
+  }
+  .cutbig2 {
+    width: 92px;
+  }
+  .cutbig3 {
+    width: 38px;
+  }
+  .cutdate1 {
+    width: 74px;
+  }
+  .cutdate2 {
+    width: 63px;
+  }
+  .placeholder {
+    left: 10px;
+    line-height: 10px;
+    top: 35px;
+  }
+  .input:focus ~ .placeholder,
+  .input:not(:placeholder-shown) ~ .placeholder {
+    transform: translateY(-22px) translateX(10px) scale(0.75);
+  }
+  .input2:focus ~ .placeholder,
+  .input2:not(:placeholder-shown) ~ .placeholder {
+    transform: translateY(-22px) translateX(10px) scale(0.75);
+  }
+  .submit {
+    border-radius: 9px;
+    font-size: 15px;
+    height: 35px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+  .submit2 {
+    border-radius: 9px;
+    font-size: 15px;
+    height: 35px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+}
+

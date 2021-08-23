@@ -1,0 +1,51 @@
+.back {
+	margin-left: -1050px;
+	background: transparent;
+	border: 0;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+.back:hover {
+	color: wheat;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	.back {
+		margin-left: -820px;
+	}
+}
+
+@media (width: 768px) and (height: 1024px) {
+  	.back {
+		margin-top: 195px;
+		margin-left: -550px;
+	}
+}
+
+@media (width: 540px) and (height: 720px) {
+  .back {
+    margin-top: 105px;
+    margin-left: -400px;
+  }
+}
+
+@media (max-width: 767px) {
+	.back {
+		margin-top: 3;
+	}
+}
+
+@media (max-width: 420px) {
+	.back {
+		margin-top: 1px;
+		margin-left: -250px;
+	}
+}
+
+@media (max-width: 320px) {
+	.back {
+		margin-top: 30px;
+		margin-left: -200px;
+	}
+}

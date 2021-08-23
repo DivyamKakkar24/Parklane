@@ -1,0 +1,84 @@
+.user {
+	position: absolute;
+	right: 17rem;
+	transform: translate(-50%, 67%);
+	text-align: center;
+	border: 2px solid #99CCCC;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	font-size: 24px;
+	line-height: 35px;
+	cursor: default;
+}
+
+.user:before {
+	content: 'U';
+	color: #99CCCC;
+	font-family: sans-serif;
+}
+
+.user p {
+	display: none;
+	-webkit-font-smoothing: antialiased;
+	text-align: center;
+	background-color: #171835;
+	padding: 12px 15px;
+	width: 193px;
+	height: auto;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 25%);
+	border-radius: 3px;
+	box-shadow: 0 0px 20px 0 rgba(0,0,0,0.1);
+	color: white;
+	font-size: 12px;
+	line-height: 18px;
+	z-index: 99;
+}
+
+.user:hover p {
+	display: block;
+	transform-origin: 100% 0%;
+    -webkit-animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.3s ease;
+}
+
+.user p:before {
+	position: absolute;
+	content: '';
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-bottom-color: #171835;
+	top: -9px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.user p:after {
+	width: 10px;
+	height: 40px;
+	content: '';
+	position: absolute;
+	top: -40px;
+	left: 0;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	.user {
+		right: 12rem;
+		width: 35px;
+		height: 35px;
+		transform: translate(-50%, 82%);
+		font-size: 20px;
+		line-height: 31px;
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.user {
+		display: none;
+	}	
+}
+

@@ -1,0 +1,130 @@
+.auth {
+  margin: 3rem auto;
+  width: 70vw;
+  max-width: 25rem;
+  border-radius: 8px;
+  background-color: transparent;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.auth h1 {
+  text-align: center;
+  margin-bottom: 0.8rem;
+  color: white;
+}
+
+.control {
+  margin-bottom: 0.5rem;
+}
+
+.control label {
+  display: block;
+  color: black;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.control input {
+  font: inherit;
+  background-color: white;
+  color: #2B0008;
+  border-radius: 4px;
+  border: 1.5px solid #1C0993;
+  width: 100%;
+  text-align: left;
+  padding: 0.25rem;
+  flex: 1 0 auto;
+}
+
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.actions button {
+  cursor: pointer;
+  font: inherit;
+  color: white;
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 0.5rem 2.5rem;
+}
+
+.actions button:hover {
+  background-color: #f1c40f;
+  border-color: #f1c40f;
+}
+
+.actions .toggle {
+  margin-top: 1rem;
+  background-color: transparent;
+  color: #7E1B3A;
+  border: none;
+  padding: 0.15rem 1.5rem;
+}
+
+.actions .toggle:hover {
+  background-color: transparent;
+  color: #2B0008;
+}
+
+.invalid {
+  color: red;
+  padding: px;
+}
+
+@media (min-width: 421px) and (max-width: 767px) {
+  .auth {
+    margin: 2.6rem auto;
+    height: 30px;
+  }
+  .auth h1 {
+    font-size: 35px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .auth {
+    margin: 7rem auto;
+    height: 30px;
+    padding: 2rem;
+  }
+  .auth h1 {
+    font-size: 35px;
+  }
+}
+
+@media (width: 768px) and (height: 1024px) {
+  .auth {
+    margin: 12rem auto;
+  }
+}
+
+@media (width: 1024px) and (height: 1366px) {
+  .auth {
+    margin: 18rem auto;
+  }
+}
+
+@media (width: 540px) and (height: 720px) {
+  .auth {
+    margin: 7rem auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .auth {
+    margin: 4rem auto;
+  }
+}
+
+@media (max-width: 320px) {
+  .auth h1 {
+    font-size: 30px;
+  }
+}

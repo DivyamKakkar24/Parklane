@@ -1,0 +1,50 @@
+.btn {
+	position: relative;
+	font-size: 1.3rem;
+	padding: 0.25rem 0.75rem;
+	background: transparent;
+	border: 2px solid black;
+	color: black;
+	letter-spacing: 0.30rem;
+	-webkit-transition: background 0.5s;
+	margin: 20px;
+	cursor: pointer;
+}
+
+.btn span{
+  position: relative;
+  z-index: 1;
+}
+
+
+.btn:after{
+	position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: black;
+  transition: all .35s;
+}
+
+.btn:hover{
+  color: #fff;
+}
+
+.btn:hover:after{
+  width: 100%;
+}
+
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	.btn {
+		padding: 0.25rem 0.75rem;
+	}	
+}
+
+@media (min-width: 800px) and (max-width: 991px) {
+	.btn {
+		padding: 0.20rem 0.70rem;
+	}
+}

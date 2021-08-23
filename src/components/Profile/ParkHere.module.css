@@ -1,0 +1,68 @@
+.content {
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+
+.inner {
+  padding: 0 30px 0 30px;
+  position: relative;
+  display: block;
+  text-align: left;
+  max-width: 100%;
+  width: 100%;
+}
+
+.center {
+  text-align: center;
+}
+
+.inner h2 {
+  font-family: 'Poiret One', cursive;
+  color: black;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.inner p {
+  font-size: 20px;
+  color: #333;
+}
+
+.inner span {
+  text-decoration: overline;
+  font-style: italic;
+  color: black;
+}
+
+.actions {
+  text-align: right;
+}
+
+.actions button {
+  font: inherit;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #001540;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+}
+
+.actions button:hover,
+.actions button:active {
+  background-color: #171835;
+  border-color: #171835;
+  color: white;
+}
+
+.actions .button--alt {
+  color: #001540;
+}
+
+.actions .button {
+  background-color: #001540;
+  color: white;
+}

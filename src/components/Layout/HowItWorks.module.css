@@ -1,0 +1,68 @@
+.header {
+	font-family: "Trebuchet MS", sans-serif;
+	font-size: 2em;
+	letter-spacing: 1px;
+	color: #2c2416;
+	border-bottom: 2px solid #cc9900;
+	text-transform: uppercase;
+	margin-bottom: 25px;
+	text-align: center;
+}
+
+.container {
+	padding: 0px 30px 30px;
+}
+
+.item {
+	padding: 21px 50px;
+	padding-left: 0px;
+	margin-right: -10px;
+	margin-left: -10px;
+	margin-bottom: 40px;
+}
+
+.title {
+	color: #171835;
+  font-size: 25px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: -.4px;
+  margin-bottom: 8px;
+  display: block;
+  box-sizing: border-box;
+}
+
+.content {
+	position: absolute;
+	margin-left: 20px;
+}
+
+.read {
+	font-family: 'Quicksand', sans-serif;
+	padding-right: 2px;
+}
+
+.number {
+	margin-left: -10px;
+	position: absolute;
+	padding-right: 10px;
+	text-align: right;
+	color: #cc9900;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.car {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+
+.car img {
+	width: 100%;
+	height: auto;
+}
+::selection {
+  background: #ffd7b8;;
+}
