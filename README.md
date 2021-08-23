@@ -4,6 +4,8 @@ A Parking Reservation Web App, where user can book Car Parks / Parking Lots / Ai
 
 ![](src/images/ss1.png)
 
+![](src/images/ss2.png)
+
 ## Features
 * User Authentication (Sign up / Log in)
 * 18 places to choose from (airports, hotels etc.)
@@ -26,4 +28,5 @@ npm start
 ## License
 [MIT](https://github.com/DivyamKakkar24/Parklane/blob/94d8b13137b69db3c85fddeabccdea615428e33e/LICENSE)
 
+#
 >Made with 🤍
