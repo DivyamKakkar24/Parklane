@@ -110,7 +110,7 @@ const ParkHere = () => {
             <div className = {classes.center}>
               <h2>{name}</h2>
               <p>{info}</p>
-              <span>Book for ${price} per hour.</span>
+              <span>Book for ₹{price} per hour.</span>
             </div>
           </div>
         </div>
