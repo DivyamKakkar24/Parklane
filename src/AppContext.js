@@ -41,7 +41,6 @@ export const ContextProvider = (props) => {
 	
 	const currentEmail = localStorage.getItem('email');
 
-	const [isLogin, setIsLogin] = useState(true);
 	const [email, setEmail] = useState(currentEmail);
 	const [token, setToken] = useState(initialToken);
 	const userIsLoggedIn = !!token;
@@ -83,15 +82,6 @@ export const ContextProvider = (props) => {
 		}
 	}, [tokenData, logoutHandler]);
 
-
-	const switchAuthModeHandler = (text) => {
-		if (text === 'Log in') {
-			setIsLogin(true);
-		}
-		else {
-			setIsLogin(false);
-		}
-	};
 
 	// Displaying places
 	const [loading, setLoading] = useState(true);
@@ -208,15 +198,13 @@ export const ContextProvider = (props) => {
 
 	return (
 		<AppContext.Provider value = {{
-			isLogin,
 			token,
-			email, 
-			loading, 
+			email,
+			loading,
 			places,
 			searchTerm,
 			setSearchTerm,
 			isLoggedIn: userIsLoggedIn,
-			switchAuthModeHandler,
 			loginHandler,
 			logoutHandler,
 			emailHandler

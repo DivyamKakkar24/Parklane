@@ -1,19 +1,17 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 import classes from './Button.module.css';
-import {useAppContext} from '../../AppContext';
 
 const Button = (props) => {
-	const {switchAuthModeHandler} = useAppContext();
 	const history = useHistory();
 
 	const clickHandler = () => {
-		history.push('/auth');
+		const path = props.text === 'Log in' ? '/auth/login' : '/auth/signup';
+		history.push(path);
 	};
 
 	return (
-		<button className = {classes.btn} 
-			onClick = {() => {switchAuthModeHandler(props.text); clickHandler();}}>
+		<button className = {classes.btn} onClick = {clickHandler}>
 			<span>{props.text}</span>
 		</button>
 	);

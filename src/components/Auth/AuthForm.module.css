@@ -60,16 +60,18 @@
   border-color: #f1c40f;
 }
 
-.actions .toggle {
+.toggle {
   margin-top: 1rem;
   background-color: transparent;
   color: #7E1B3A;
   border: none;
   padding: 0.15rem 1.5rem;
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
 }
 
-.actions .toggle:hover {
-  background-color: transparent;
+.toggle:hover {
   color: #2B0008;
 }
 

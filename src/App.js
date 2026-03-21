@@ -19,7 +19,11 @@ function App() {
           <HomePage />
         </Route>
 
-        <Route path='/auth'>
+        <Route path='/auth' exact>
+          <Redirect to='/auth/login' />
+        </Route>
+
+        <Route path='/auth/:mode(login|signup)'>
           {isLoggedIn ? <Redirect to='/' /> : <AuthPage />}
         </Route>
 

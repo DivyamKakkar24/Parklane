@@ -1,5 +1,5 @@
 import {useRef, useState} from 'react';
-import {useHistory, useLocation} from 'react-router-dom';
+import {useHistory, useLocation, useParams, Link} from 'react-router-dom';
 import classes from './AuthForm.module.css';
 import {useAppContext} from '../../AppContext';
 import LoadingSpinner from '../Layout/LoadingSpinner';
@@ -11,12 +11,15 @@ const AuthForm = () => {
   const passwordInputRef = useRef();
   const history = useHistory();
   const location = useLocation();
+  const { mode } = useParams();
   const from = (location.state && location.state.from) || { pathname: '/' };
+
+  const isLogin = mode !== 'signup';
 
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState({show: false, message: '', type: ''});
 
-  const {isLogin, loginHandler, emailHandler} = useAppContext();
+  const {loginHandler, emailHandler} = useAppContext();
 
   const showAlert = (show = false, type = '', message = '') => {
     setAlert({
@@ -83,7 +86,9 @@ const AuthForm = () => {
     else {
       if (!isLogin) {
         showAlert(true, 'success', 'Successfully Signed Up');
-        setTimeout(() => { history.goBack(); }, 2000);
+        setTimeout(() => {
+          history.replace({ pathname: '/auth/login', state: location.state });
+        }, 2000);
       }
       else {
         showAlert(true, 'success', 'Welcome');
@@ -132,6 +137,15 @@ const AuthForm = () => {
         <div className={classes.actions}>
           {!isLoading && <button>{isLogin ? 'Login' : 'Create Account'}</button>}
           {isLoading && <LoadingSpinner />}
+          <Link
+            to={{
+              pathname: isLogin ? '/auth/signup' : '/auth/login',
+              state: location.state,
+            }}
+            className={classes.toggle}
+          >
+            {isLogin ? 'Create an account' : 'Login with existing account'}
+          </Link>
         </div>
       </form>
       

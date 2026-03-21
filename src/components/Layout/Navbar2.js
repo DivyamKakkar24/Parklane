@@ -81,7 +81,7 @@ const Navbar = () => {
 								{isLoggedIn ? (
 									<span onClick = {getoutHandler}>{showLinks && <FaSignOutAlt />} Sign out</span>
 								) : (
-									<Link to = '/auth'><span>{showLinks && <FaSignInAlt />} Sign in</span></Link>
+									<Link to = '/auth/login'><span>{showLinks && <FaSignInAlt />} Sign in</span></Link>
 								)}
 							</li>
 							<div className = 'dot'></div>
@@ -94,7 +94,7 @@ const Navbar = () => {
 					{isLoggedIn ? (
 						<button className = 'logout-pc' onClick = {getoutHandler}>Sign out</button>
 					) : (
-						<Link to = '/auth'><button className = 'logout-pc'>Sign in</button></Link>
+						<Link to = '/auth/login'><button className = 'logout-pc'>Sign in</button></Link>
 					)}
 				</div>
 			</nav>
