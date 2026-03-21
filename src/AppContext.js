@@ -97,9 +97,9 @@ export const ContextProvider = (props) => {
 	const [loading, setLoading] = useState(true);
 	const [places, setPlaces] = useState([]);
 	const [searchTerm, setSearchTerm] = useState('');
+	const [userCenter, setUserCenter] = useState(null);
 
 	const apiKey = process.env.REACT_APP_GEOAPIFY_API_KEY;
-	const DEFAULT_CENTER = { lon: 77.5946, lat: 12.9716 };
 
 	const geocode = useCallback(async (text) => {
 		const res = await fetch(
@@ -111,34 +111,82 @@ export const ContextProvider = (props) => {
 		return feat ? { lon: feat.properties.lon, lat: feat.properties.lat } : null;
 	}, [apiKey]);
 
+	const ipLocate = useCallback(async () => {
+		const res = await fetch(`https://api.geoapify.com/v1/ipinfo?apiKey=${apiKey}`);
+		if (!res.ok) return null;
+		const data = await res.json();
+		return data.location
+			? { lon: data.location.longitude, lat: data.location.latitude }
+			: null;
+	}, [apiKey]);
+
 	const fetchPlaces = useCallback(async (center) => {
-		const url = `https://api.geoapify.com/v2/places?categories=parking&filter=circle:${center.lon},${center.lat},15000&bias=proximity:${center.lon},${center.lat}&limit=20&apiKey=${apiKey}`;
+		const url = `https://api.geoapify.com/v2/places?categories=parking.cars&conditions=named&filter=circle:${center.lon},${center.lat},15000&bias=proximity:${center.lon},${center.lat}&limit=40&apiKey=${apiKey}`;
 		const response = await fetch(url);
 		if (!response.ok) {
 			throw new Error('Something went wrong!');
 		}
 		const data = await response.json();
-		return data.features.map((feature) => {
+
+		const seen = new Set();
+		const result = [];
+		for (const feature of data.features) {
 			const props = feature.properties;
+			const name = props.name || props.address_line1;
+			if (!name) continue;
+			const key = name.toLowerCase().trim();
+			if (seen.has(key)) continue;
+			seen.add(key);
+
 			const { lat, lon } = props;
-			return {
+			result.push({
 				id: props.place_id,
-				name: props.name || props.address_line1 || 'Parking Spot',
+				name,
 				info: props.formatted || props.address_line2 || '',
 				price: 40,
 				lat,
 				lon,
 				image: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${lon},${lat}&zoom=15&marker=lonlat:${lon},${lat};color:%23ff0000;size:medium&apiKey=${apiKey}`
-			};
-		});
+			});
+			if (result.length >= 20) break;
+		}
+		return result;
 	}, [apiKey]);
 
+	// Resolve user's location once: browser geolocation → IP fallback
 	useEffect(() => {
+		let cancelled = false;
+
+		const fallback = async () => {
+			const ip = await ipLocate().catch(() => null);
+			if (!cancelled) setUserCenter(ip || { lon: 77.5946, lat: 12.9716 });
+		};
+
+		if (!navigator.geolocation) {
+			fallback();
+		} else {
+			navigator.geolocation.getCurrentPosition(
+				(pos) => {
+					if (!cancelled) {
+						setUserCenter({ lon: pos.coords.longitude, lat: pos.coords.latitude });
+					}
+				},
+				() => fallback(),
+				{ timeout: 8000 }
+			);
+		}
+
+		return () => { cancelled = true; };
+	}, [ipLocate]);
+
+	// Fetch places whenever search term or resolved center changes
+	useEffect(() => {
+		if (!userCenter) return;
 		let cancelled = false;
 
 		const run = async () => {
 			setLoading(true);
-			let center = DEFAULT_CENTER;
+			let center = userCenter;
 			if (searchTerm.trim()) {
 				const geo = await geocode(searchTerm.trim());
 				if (geo) center = geo;
@@ -156,7 +204,7 @@ export const ContextProvider = (props) => {
 		});
 
 		return () => { cancelled = true; };
-	}, [searchTerm, geocode, fetchPlaces]);
+	}, [searchTerm, userCenter, geocode, fetchPlaces]);
 
 	return (
 		<AppContext.Provider value = {{
