@@ -18,7 +18,7 @@ const ParkHere = () => {
   const [didSubmit, setDidSubmit] = useState(false);
   const [ticketId, setTicketId] = useState(null);
 
-  const {email, setSearchTerm, token} = useAppContext();
+  const {email, setSearchTerm, token, places, loading: placesLoading} = useAppContext();
 
   useEffect(() => {
     setSearchTerm('');
@@ -26,38 +26,16 @@ const ParkHere = () => {
 
 
   useEffect(() => {
-    const fetchPlace = async () => {
-      setLoading(true);
+    if (placesLoading) {
+      return;
+    }
 
-      const response = await fetch(`https://parklane-24dk-default-rtdb.firebaseio.com/places.json?auth=${token}`);
-      if (!response.ok) {
-        throw new Error('Something went wrong!');
-      }
-
-      const data = await response.json();
-      const loadedPlace = [];
-
-      for (const key in data) {
-        if(key === placeId){
-          loadedPlace.push({
-            id: key,
-            name: data[key].name,
-            info: data[key].info,
-            price: data[key].price,
-          });
-          break;
-        }
-      }
-
-      setContent(loadedPlace[0]);
-      setLoading(false);
-    };
-
-    fetchPlace().catch(error => {
-      console.log(error);
-      setLoading(false);
-    });
-  }, [placeId, token]);
+    const found = places.find((p) => p.id === placeId);
+    if (found) {
+      setContent(found);
+    }
+    setLoading(false);
+  }, [placeId, places, placesLoading]);
 
 
   const {name, info, price} = content;

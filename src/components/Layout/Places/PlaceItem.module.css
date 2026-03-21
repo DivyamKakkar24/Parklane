@@ -57,8 +57,38 @@
   margin-bottom: 0px;
 }
 
+.mapBtn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: none;
+  background: #171835;
+  color: #F1D145;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: var(--transition);
+}
+
+.mapBtn:hover {
+  background: #F1D145;
+  color: #171835;
+}
+
+.mapContainer {
+  padding: 0.75rem;
+  background: #fff;
+}
+
 @media screen and (max-width: 799px) {
  .img-container {
-    width: 70%;   
- } 
+    width: 70%;
+ }
 }

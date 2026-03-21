@@ -101,23 +101,31 @@ export const ContextProvider = (props) => {
 	useEffect(() => {
 		const fetchPlaces = async () => {
 			setLoading(true);
-			const response = await fetch(`https://parklane-24dk-default-rtdb.firebaseio.com/places.json?auth=${token}`);
+
+			const apiKey = process.env.REACT_APP_GEOAPIFY_API_KEY;
+			const url = `https://api.geoapify.com/v2/places?categories=parking&filter=circle:77.5946,12.9716,15000&limit=20&apiKey=${apiKey}`;
+
+			const response = await fetch(url);
 			if (!response.ok) {
 				throw new Error('Something went wrong!');
 			}
-			
-			const data = await response.json();
-			const loadedPlaces = [];
 
-			for (const key in data) {
-				loadedPlaces.push({
-					id: key,
-					name: data[key].name,
-					info: data[key].info,
-					price: data[key].price,
-					image: data[key].image
-				});
-			}
+			const data = await response.json();
+			const loadedPlaces = data.features.map((feature) => {
+				const props = feature.properties;
+				const lat = props.lat;
+				const lon = props.lon;
+
+				return {
+					id: props.place_id,
+					name: props.name || props.address_line1 || 'Parking Spot',
+					info: props.formatted || props.address_line2 || '',
+					price: 40,
+					lat,
+					lon,
+					image: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${lon},${lat}&zoom=15&marker=lonlat:${lon},${lat};color:%23ff0000;size:medium&apiKey=${apiKey}`
+				};
+			});
 
 			setPlaces(loadedPlaces);
 			setLoading(false);
@@ -127,7 +135,7 @@ export const ContextProvider = (props) => {
 			console.log(error);
 			setLoading(false);
 		});
-	}, [token]);
+	}, []);
 
 	return (
 		<AppContext.Provider value = {{
