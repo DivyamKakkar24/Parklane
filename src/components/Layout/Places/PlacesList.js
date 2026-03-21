@@ -8,16 +8,7 @@ import { useAppContext } from '../../../AppContext';
 
 
 const PlacesList = () => {
-	const {loading, places, searchTerm} = useAppContext();
-
-	if (loading) {
-		return <Loader />
-	}
-
-	let searchedPlaces = [];
-	searchedPlaces = places.filter((item) => {
-		return (searchTerm === '') || (item.name.toLowerCase().includes(searchTerm.toLowerCase()));
-	});
+	const {loading, places} = useAppContext();
 
 	return (
 		<div>
@@ -25,14 +16,20 @@ const PlacesList = () => {
 
 			<SearchForm />
 
-			{(searchedPlaces.length < 1) && <h3 className = {classes.nothing}>No Places matched your search criteria</h3>}
+			{loading && <Loader />}
 
-			{(searchedPlaces.length >= 1) && <div className = {classes['places-center']}>
-					{searchedPlaces.map((item) => {
+			{!loading && places.length < 1 && (
+				<h3 className = {classes.nothing}>No parking found near that location</h3>
+			)}
+
+			{!loading && places.length >= 1 && (
+				<div className = {classes['places-center']}>
+					{places.map((item) => {
 						return <PlaceItem key = {item.id} {...item} />
 					})}
-				</div>}
-				
+				</div>
+			)}
+
 			<Footer />
 		</div>
 	);

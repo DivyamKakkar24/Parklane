@@ -98,44 +98,65 @@ export const ContextProvider = (props) => {
 	const [places, setPlaces] = useState([]);
 	const [searchTerm, setSearchTerm] = useState('');
 
+	const apiKey = process.env.REACT_APP_GEOAPIFY_API_KEY;
+	const DEFAULT_CENTER = { lon: 77.5946, lat: 12.9716 };
+
+	const geocode = useCallback(async (text) => {
+		const res = await fetch(
+			`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(text)}&limit=1&apiKey=${apiKey}`
+		);
+		if (!res.ok) return null;
+		const data = await res.json();
+		const feat = data.features && data.features[0];
+		return feat ? { lon: feat.properties.lon, lat: feat.properties.lat } : null;
+	}, [apiKey]);
+
+	const fetchPlaces = useCallback(async (center) => {
+		const url = `https://api.geoapify.com/v2/places?categories=parking&filter=circle:${center.lon},${center.lat},15000&bias=proximity:${center.lon},${center.lat}&limit=20&apiKey=${apiKey}`;
+		const response = await fetch(url);
+		if (!response.ok) {
+			throw new Error('Something went wrong!');
+		}
+		const data = await response.json();
+		return data.features.map((feature) => {
+			const props = feature.properties;
+			const { lat, lon } = props;
+			return {
+				id: props.place_id,
+				name: props.name || props.address_line1 || 'Parking Spot',
+				info: props.formatted || props.address_line2 || '',
+				price: 40,
+				lat,
+				lon,
+				image: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${lon},${lat}&zoom=15&marker=lonlat:${lon},${lat};color:%23ff0000;size:medium&apiKey=${apiKey}`
+			};
+		});
+	}, [apiKey]);
+
 	useEffect(() => {
-		const fetchPlaces = async () => {
+		let cancelled = false;
+
+		const run = async () => {
 			setLoading(true);
-
-			const apiKey = process.env.REACT_APP_GEOAPIFY_API_KEY;
-			const url = `https://api.geoapify.com/v2/places?categories=parking&filter=circle:77.5946,12.9716,15000&limit=20&apiKey=${apiKey}`;
-
-			const response = await fetch(url);
-			if (!response.ok) {
-				throw new Error('Something went wrong!');
+			let center = DEFAULT_CENTER;
+			if (searchTerm.trim()) {
+				const geo = await geocode(searchTerm.trim());
+				if (geo) center = geo;
 			}
-
-			const data = await response.json();
-			const loadedPlaces = data.features.map((feature) => {
-				const props = feature.properties;
-				const lat = props.lat;
-				const lon = props.lon;
-
-				return {
-					id: props.place_id,
-					name: props.name || props.address_line1 || 'Parking Spot',
-					info: props.formatted || props.address_line2 || '',
-					price: 40,
-					lat,
-					lon,
-					image: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${lon},${lat}&zoom=15&marker=lonlat:${lon},${lat};color:%23ff0000;size:medium&apiKey=${apiKey}`
-				};
-			});
-
-			setPlaces(loadedPlaces);
-			setLoading(false);
+			const loaded = await fetchPlaces(center);
+			if (!cancelled) {
+				setPlaces(loaded);
+				setLoading(false);
+			}
 		};
 
-		fetchPlaces().catch(error => {
-			console.log(error);
-			setLoading(false);
+		run().catch((err) => {
+			console.log(err);
+			if (!cancelled) setLoading(false);
 		});
-	}, []);
+
+		return () => { cancelled = true; };
+	}, [searchTerm, geocode, fetchPlaces]);
 
 	return (
 		<AppContext.Provider value = {{

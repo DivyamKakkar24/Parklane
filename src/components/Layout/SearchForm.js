@@ -12,20 +12,15 @@ const SearchForm = () => {
 		setSearchTerm(searchValue.current.value);
 	};
 
-	const searchInstant = () => {
-		setSearchTerm(searchValue.current.value);
-	};
-
 	return (
 		<section className = 'wrap'>
 			<form onSubmit = {searchHandler} className = 'search'>
-				<input 
-					className = 'searchTerm' 
-					type = 'text' 
-					id = 'parking' 
-					placeholder = 'Where do you want to park?' 
-					ref = {searchValue} 
-					onChange = {searchInstant}
+				<input
+					className = 'searchTerm'
+					type = 'text'
+					id = 'parking'
+					placeholder = 'Search a city or address...'
+					ref = {searchValue}
 				/>
 				
 				<button type = 'submit' className = 'searchButton'>
