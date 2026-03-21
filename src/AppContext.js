@@ -111,7 +111,15 @@ export const ContextProvider = (props) => {
 	}, [apiKey]);
 
 	const fetchPlaces = useCallback(async (center) => {
-		const url = `https://api.geoapify.com/v2/places?categories=parking.cars&conditions=named&filter=circle:${center.lon},${center.lat},15000&bias=proximity:${center.lon},${center.lat}&limit=40&apiKey=${apiKey}`;
+		const categories = [
+			'parking.cars',
+			'tourism.attraction',
+			'tourism.sights',
+			'entertainment',
+			'commercial.shopping_mall',
+		].join(',');
+
+		const url = `https://api.geoapify.com/v2/places?categories=${categories}&conditions=named&filter=circle:${center.lon},${center.lat},15000&bias=proximity:${center.lon},${center.lat}&limit=60&apiKey=${apiKey}`;
 		const response = await fetch(url);
 		if (!response.ok) {
 			throw new Error('Something went wrong!');
@@ -129,16 +137,18 @@ export const ContextProvider = (props) => {
 			seen.add(key);
 
 			const { lat, lon } = props;
+			const isParking = (props.categories || []).some((c) => c.startsWith('parking'));
+
 			result.push({
 				id: props.place_id,
 				name,
 				info: props.formatted || props.address_line2 || '',
-				price: 40,
+				price: isParking ? 40 : 60,
 				lat,
 				lon,
 				image: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${lon},${lat}&zoom=15&marker=lonlat:${lon},${lat};color:%23ff0000;size:medium&apiKey=${apiKey}`
 			});
-			if (result.length >= 20) break;
+			if (result.length >= 24) break;
 		}
 		return result;
 	}, [apiKey]);
