@@ -1,45 +1,53 @@
 import React, { useState } from 'react';
 import classes from './PlaceItem.module.css';
 import { Link } from 'react-router-dom';
-import { FaMapMarkerAlt, FaTimes } from 'react-icons/fa';
-import Map from '../Map/Map';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import MapModal from '../Map/MapModal';
 
 const PlaceItem = ({ id, name, info, image, price, lat, lon }) => {
 	const [showMap, setShowMap] = useState(false);
 	const link = `/profile/${id}`;
 
-	const toggleMap = (e) => {
+	const openMap = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		setShowMap((prev) => !prev);
+		setShowMap(true);
 	};
 
+	const closeMap = () => setShowMap(false);
+
 	return (
-		<article className={classes['img-container']}>
-			<Link to={link}>
-				<div className={classes.item}>
-					<img src={image} alt={name} />
-					<div className={classes.text}>
-						<div className={classes.name}>
-							<h4>{name}</h4>
+		<>
+			<article className={classes['img-container']}>
+				<Link to={link}>
+					<div className={classes.item}>
+						<img src={image} alt={name} />
+						<div className={classes.text}>
+							<div className={classes.name}>
+								<h4>{name}</h4>
+							</div>
 						</div>
 					</div>
-				</div>
-			</Link>
-			<button
-				type='button'
-				className={classes.mapBtn}
-				onClick={toggleMap}
-				title={showMap ? 'Close map' : 'View on map'}
-			>
-				{showMap ? <FaTimes /> : <FaMapMarkerAlt />}
-			</button>
+				</Link>
+				<button
+					type='button'
+					className={classes.mapBtn}
+					onClick={openMap}
+					title='View on map'
+				>
+					<FaMapMarkerAlt />
+				</button>
+			</article>
 			{showMap && (
-				<div className={classes.mapContainer}>
-					<Map lat={lat} lon={lon} name={name} />
-				</div>
+				<MapModal
+					lat={lat}
+					lon={lon}
+					name={name}
+					address={info}
+					onClose={closeMap}
+				/>
 			)}
-		</article>
+		</>
 	);
 };
 

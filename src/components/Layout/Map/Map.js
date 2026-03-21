@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
 
 const GEOAPIFY_KEY = process.env.REACT_APP_GEOAPIFY_API_KEY;
 
-const Map = ({ lat, lon, name, zoom = 15 }) => {
+const Map = ({ lat, lon, name, zoom = 15, children }) => {
 	const position = [lat, lon];
 
 	return (
@@ -25,7 +25,7 @@ const Map = ({ lat, lon, name, zoom = 15 }) => {
 			<MapContainer
 				center={position}
 				zoom={zoom}
-				scrollWheelZoom={false}
+				scrollWheelZoom={true}
 				className={classes.map}
 			>
 				<TileLayer
@@ -36,6 +36,7 @@ const Map = ({ lat, lon, name, zoom = 15 }) => {
 				<Marker position={position}>
 					<Popup>{name}</Popup>
 				</Marker>
+				{children}
 			</MapContainer>
 		</div>
 	);
