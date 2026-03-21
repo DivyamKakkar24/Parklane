@@ -1,5 +1,5 @@
 import {useRef, useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import classes from './AuthForm.module.css';
 import {useAppContext} from '../../AppContext';
 import LoadingSpinner from '../Layout/LoadingSpinner';
@@ -10,6 +10,8 @@ const AuthForm = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const history = useHistory();
+  const location = useLocation();
+  const from = (location.state && location.state.from) || { pathname: '/' };
 
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState({show: false, message: '', type: ''});
@@ -92,8 +94,7 @@ const AuthForm = () => {
         loginHandler(data.idToken, expirationTime.toISOString());
         emailHandler(data.email);
 
-        history.replace('/');
-        setTimeout(() => { history.go(0); }, 400);
+        history.replace(from);
       }
     }
   };

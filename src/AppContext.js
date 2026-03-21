@@ -41,7 +41,7 @@ export const ContextProvider = (props) => {
 	
 	const currentEmail = localStorage.getItem('email');
 
-	const [isLogin, setIsLogin] = useState(null);
+	const [isLogin, setIsLogin] = useState(true);
 	const [email, setEmail] = useState(currentEmail);
 	const [token, setToken] = useState(initialToken);
 	const userIsLoggedIn = !!token;

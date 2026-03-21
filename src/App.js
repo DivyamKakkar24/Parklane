@@ -1,49 +1,42 @@
 import React, { Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import {useAppContext} from './AppContext';
+import { useAppContext } from './AppContext';
 import Loader from './components/Layout/Loader';
+import PrivateRoute from './components/Auth/PrivateRoute';
 
 const AuthPage = React.lazy(() => import('./pages/AuthPage'));
 const HomePage = React.lazy(() => import('./pages/HomePage'));
 const ProfilePage = React.lazy(() => import('./pages/ProfilePage'));
 const BookingsPage = React.lazy(() => import('./pages/BookingsPage'));
-const Presence = React.lazy(() => import('./components/StartingPage/Presence'));
 
 function App() {
-  const {isLoggedIn} = useAppContext();
+  const { isLoggedIn } = useAppContext();
 
   return (
-    <Suspense fallback = {<Loader />}>
+    <Suspense fallback={<Loader />}>
       <Switch>
         <Route path='/' exact>
           <HomePage />
         </Route>
 
         <Route path='/auth'>
-          {isLoggedIn && <HomePage />}
-          {!isLoggedIn && <AuthPage />}
+          {isLoggedIn ? <Redirect to='/' /> : <AuthPage />}
         </Route>
 
-        {isLoggedIn && (
-          <Route path='/profile' exact>
-            <Presence />
-          </Route>
-        )}
+        <Route path='/profile' exact>
+          <Redirect to='/' />
+        </Route>
 
-        {isLoggedIn && (
-          <Route path='/bookings' exact>
-            <BookingsPage />
-          </Route>
-        )}
+        <PrivateRoute path='/profile/:placeId'>
+          <ProfilePage />
+        </PrivateRoute>
 
-        {isLoggedIn && (
-          <Route path = '/profile/:placeId'>
-            <ProfilePage />
-          </Route>
-        )}
+        <PrivateRoute path='/bookings' exact>
+          <BookingsPage />
+        </PrivateRoute>
 
-        <Route path = '*'>
-          <Redirect to = '/' />
+        <Route path='*'>
+          <Redirect to='/' />
         </Route>
       </Switch>
     </Suspense>

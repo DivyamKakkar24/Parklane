@@ -8,13 +8,14 @@ import UserIn from './UserIn';
 import {
   FaHome,
   FaSignOutAlt,
+  FaSignInAlt,
   FaTicketAlt,
   FaQuestion
 } from 'react-icons/fa';
 
 
 const Navbar = () => {
-	const {logoutHandler, email} = useAppContext();
+	const {logoutHandler, email, isLoggedIn} = useAppContext();
 
 	const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false);
 	const [showLinks, setShowLinks] = useState(false); 
@@ -62,29 +63,39 @@ const Navbar = () => {
 					<div className = "links-container" ref = {linksContainerRef}>
 
 						<ul className = "links" ref = {linksRef}>
-							<li className = 'splink'>
-								<span>{email}</span>
+							{isLoggedIn && (
+								<li className = 'splink'>
+									<span>{email}</span>
+								</li>
+							)}
+							<li>
+								<Link to = '/'><span>{showLinks && <FaHome />} Home</span></Link>
 							</li>
 							<li>
-								<Link to = '/profile'><span>{showLinks && <FaHome />} Home</span></Link>
-							</li>
-							<li>
-								<Link to = '/bookings'><span>{showLinks && <FaTicketAlt />} Bookings</span></Link> 
+								<Link to = '/bookings'><span>{showLinks && <FaTicketAlt />} Bookings</span></Link>
 							</li>
 							<li onClick = {howItWorksHandler}>
 								<span style = {{cursor:'pointer'}}>{showLinks && <FaQuestion />} How it works</span>
 							</li>
 							<li className = 'logout-mobile'>
-								<span onClick = {getoutHandler}>{showLinks && <FaSignOutAlt />} Sign out</span> 
+								{isLoggedIn ? (
+									<span onClick = {getoutHandler}>{showLinks && <FaSignOutAlt />} Sign out</span>
+								) : (
+									<Link to = '/auth'><span>{showLinks && <FaSignInAlt />} Sign in</span></Link>
+								)}
 							</li>
 							<div className = 'dot'></div>
 						</ul>
-						
+
 					</div>
 
-					<UserIn />
+					{isLoggedIn && <UserIn />}
 
-					<button className = 'logout-pc' onClick = {getoutHandler}>Sign out</button>
+					{isLoggedIn ? (
+						<button className = 'logout-pc' onClick = {getoutHandler}>Sign out</button>
+					) : (
+						<Link to = '/auth'><button className = 'logout-pc'>Sign in</button></Link>
+					)}
 				</div>
 			</nav>
 
