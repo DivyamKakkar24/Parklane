@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import logo from '../../images/logo3.png'; 
+import logo from '../../assets/images/logo3.png'; 
 import { FaBars } from 'react-icons/fa';
 import HowItWorks from './HowItWorks';
 import {useAppContext} from '../../AppContext';

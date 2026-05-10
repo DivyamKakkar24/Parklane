@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import logo from '../../images/logo.PNG'; 
-import logosmall from '../../images/logosmall.png';
-import logoverysmall from '../../images/logoverysmall.png';
+import logo from '../../assets/images/logo.PNG'; 
+import logosmall from '../../assets/images/logosmall.png';
+import logoverysmall from '../../assets/images/logoverysmall.png';
 import classes from './Navbar1.module.css';
 import HowItWorks from './HowItWorks';
 import { FaBars } from 'react-icons/fa';
