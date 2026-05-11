@@ -90,6 +90,9 @@ export const ContextProvider = (props) => {
 	const [userCenter, setUserCenter] = useState(null);
 
 	const apiKey = process.env.REACT_APP_GEOAPIFY_API_KEY;
+	if (!apiKey) {
+		console.warn('Missing REACT_APP_GEOAPIFY_API_KEY in .env. Create a .env file at the project root and restart the dev server.');
+	}
 
 	const geocode = useCallback(async (text) => {
 		const res = await fetch(
@@ -148,7 +151,7 @@ export const ContextProvider = (props) => {
 				lon,
 				image: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${lon},${lat}&zoom=15&marker=lonlat:${lon},${lat};color:%23ff0000;size:medium&apiKey=${apiKey}`
 			});
-			if (result.length >= 24) break;
+			// if (result.length >= 24) break;
 		}
 		return result;
 	}, [apiKey]);
